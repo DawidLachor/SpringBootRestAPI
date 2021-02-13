@@ -1,7 +1,5 @@
 package pl.javastart.equipy.user;
 
-import org.springframework.stereotype.Controller;
-
 import javax.persistence.*;
 import java.util.Objects;
 
@@ -15,12 +13,12 @@ public class User {
     @Column(name = "first_name")
     private String firstName;
     @Column(name = "last_name")
-    private String LastName;
+    private String lastName;
     private String pesel;
 
     public User(String firstName, String lastName, String pesel) {
         this.firstName = firstName;
-        LastName = lastName;
+        this.lastName = lastName;
         this.pesel = pesel;
     }
 
@@ -44,11 +42,11 @@ public class User {
     }
 
     public String getLastName() {
-        return LastName;
+        return lastName;
     }
 
     public void setLastName(String lastName) {
-        LastName = lastName;
+        this.lastName = lastName;
     }
 
     public String getPesel() {
@@ -64,11 +62,11 @@ public class User {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         User user = (User) o;
-        return Objects.equals(id, user.id) && Objects.equals(firstName, user.firstName) && Objects.equals(LastName, user.LastName) && Objects.equals(pesel, user.pesel);
+        return Objects.equals(id, user.id) && Objects.equals(firstName, user.firstName) && Objects.equals(lastName, user.lastName) && Objects.equals(pesel, user.pesel);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, firstName, LastName, pesel);
+        return Objects.hash(id, firstName, lastName, pesel);
     }
 }

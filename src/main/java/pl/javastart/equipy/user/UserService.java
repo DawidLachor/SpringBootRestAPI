@@ -20,7 +20,15 @@ public class UserService {
     }
 
     public List<UserDto> findAll(){
-        return userRepository.findAll().stream()
+        return userRepository.findAll()
+                .stream()
+                .map(UserMapper::toDto)
+                .collect(Collectors.toList());
+    }
+
+    public List<UserDto> findByLastName(String name){
+        return userRepository.findAllByLastNameContainsIgnoreCase(name)
+                .stream()
                 .map(UserMapper::toDto)
                 .collect(Collectors.toList());
     }
