@@ -14,6 +14,7 @@ public class User {
     private String firstName;
     @Column(name = "last_name")
     private String lastName;
+    @Column(unique = true)
     private String pesel;
 
     public User(String firstName, String lastName, String pesel) {
