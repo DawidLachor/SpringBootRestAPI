@@ -34,18 +34,26 @@ public class UserResource {
         }
     }
 
+//    @PostMapping
+//    public ResponseEntity<UserDto> save(@RequestBody UserDto userDto){
+//        if (userDto.getId() != null)
+//            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Zapisywany obiekt nie może mieć ustawionego id");
+//        UserDto saveUser = userService.addUser(userDto);
+//        URI location = ServletUriComponentsBuilder
+//                .fromCurrentRequest()
+//                .path("/{id}")
+//                .buildAndExpand(saveUser.getId())
+//                .toUri();
+//        return ResponseEntity.created(location).body(saveUser);
+//    }
+
     @PostMapping
-    public ResponseEntity<UserDto> save(@RequestBody UserDto userDto){
+    public UserDto save(@RequestBody UserDto userDto){
         if (userDto.getId() != null)
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Zapisywany obiekt nie może mieć ustawionego id");
-        UserDto saveUser = userService.addUser(userDto);
-        URI location = ServletUriComponentsBuilder
-                .fromCurrentRequest()
-                .path("/{id}")
-                .buildAndExpand(saveUser.getId())
-                .toUri();
-        return ResponseEntity.created(location).body(saveUser);
+        return userService.addUser(userDto);
     }
+
 
     @GetMapping("/{id}")
     public UserDto getUser(@PathVariable Long id){

@@ -51,15 +51,12 @@ public class UserService {
     }
 
     public UserDto editUser(UserDto userDto) {
-
-        User userById = findUserById(userDto.getId());
         Optional<User> byPesel = userRepository.findByPesel(userDto.getPesel());
         byPesel.ifPresent(user -> {
-                    if (!userById.getPesel().equals(user.getPesel()))
+                    if (!userDto.getPesel().equals(user.getPesel()))
                         throw new DuplicationPeselException();
                 }
         );
-
         User save = userRepository.save(UserMapper.toEntity(userDto));
         return UserMapper.toDto(save);
     }
