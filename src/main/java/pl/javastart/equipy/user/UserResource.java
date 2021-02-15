@@ -46,6 +46,18 @@ public class UserResource {
                 .toUri();
         return ResponseEntity.created(location).body(saveUser);
     }
+
+    @GetMapping("/{id}")
+    public UserDto getUser(@PathVariable Long id){
+        return userService.findById(id);
+    }
+
+    @PutMapping("/{id}")
+    public UserDto editUser(@RequestBody UserDto userDto, @PathVariable Long id){
+        if (userDto.getId() == null || !userDto.getId().equals(id))
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Aktualizowany obiekt musi mieć id zgodne z id w ścieżce zasobu");
+        return userService.editUser(userDto);
+    }
 }
 
 

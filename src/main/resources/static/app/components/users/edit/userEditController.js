@@ -10,6 +10,7 @@ angular.module('app')
         const saveCallback = () => {
             $location.path(`/user-edit/${vm.user.id}`);
         };
+
         const errorCallback = err => {
             vm.msg = `Błąd zapisu: ${err.data.message}`;
         };

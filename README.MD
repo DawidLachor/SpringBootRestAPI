@@ -42,10 +42,10 @@ npm install
 
 * Search users (by Lastname)
 * Add Users
+* Edit Users
 
 ### To Do
 
-* Edit Users
 * List equipment
 * Search equipment
 * Add equipment
