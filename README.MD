@@ -3,6 +3,7 @@ The application is web application for managing users. Front-end is in Angular a
 Back-end communication from front-end by REST API.
 
 ![Index page](src/main/resources/static/img/IndexPage.png)
+![Equipment page](src/main/resources/static/img/EquipmentPage.png)
 
 ## Table of contents
 * [Setup](#setup)
@@ -44,10 +45,10 @@ npm install
 * Add Users
 * Edit Users
 * List equipment
+* Search equipment
 
 ### To Do
 
-* Search equipment
 * Add equipment
 * Edit equipment
 * Equipment for user
