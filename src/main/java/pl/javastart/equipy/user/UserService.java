@@ -45,20 +45,22 @@ public class UserService {
         return UserMapper.toDto(user);
     }
 
-    public UserDto findById(Long id) {
-        User user = findUserById(id);
-        return UserMapper.toDto(user);
-    }
-
     public UserDto editUser(UserDto userDto) {
-        Optional<User> byPesel = userRepository.findByPesel(userDto.getPesel());
+
+        Optional<User> byPesel = userRepository.findById(userDto.getId());
         byPesel.ifPresent(user -> {
                     if (!userDto.getPesel().equals(user.getPesel()))
                         throw new DuplicationPeselException();
                 }
         );
+
         User save = userRepository.save(UserMapper.toEntity(userDto));
         return UserMapper.toDto(save);
+    }
+
+    public UserDto findById(Long id) {
+        User user = findUserById(id);
+        return UserMapper.toDto(user);
     }
 
     private User findUserById(Long id) {
