@@ -1,8 +1,10 @@
 package pl.javastart.equipy.equip.asserts;
 
+import pl.javastart.equipy.assignments.Assignment;
 import pl.javastart.equipy.equip.category.Category;
 
 import javax.persistence.*;
+import java.util.List;
 
 @Entity
 public class Assets {
@@ -15,6 +17,8 @@ public class Assets {
     @ManyToOne(cascade = CascadeType.PERSIST)
     @JoinColumn(name = "category_id")
     private Category category;
+    @OneToMany(mappedBy = "assets")
+    private List<Assignment> assignments;
 
     public Assets() {
     }
@@ -59,5 +63,11 @@ public class Assets {
         this.category = category;
     }
 
+    public List<Assignment> getAssignments() {
+        return assignments;
+    }
 
+    public void setAssignments(List<Assignment> assignments) {
+        this.assignments = assignments;
+    }
 }

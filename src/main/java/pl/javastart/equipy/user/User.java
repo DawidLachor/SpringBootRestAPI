@@ -1,6 +1,9 @@
 package pl.javastart.equipy.user;
 
+import pl.javastart.equipy.assignments.Assignment;
+
 import javax.persistence.*;
+import java.util.List;
 import java.util.Objects;
 
 @Entity
@@ -16,6 +19,8 @@ public class User {
     private String lastName;
     @Column(unique = true)
     private String pesel;
+    @OneToMany(mappedBy = "users")
+    private List<Assignment> assignments;
 
     public User(String firstName, String lastName, String pesel) {
         this.firstName = firstName;
@@ -56,6 +61,14 @@ public class User {
 
     public void setPesel(String pesel) {
         this.pesel = pesel;
+    }
+
+    public List<Assignment> getAssignments() {
+        return assignments;
+    }
+
+    public void setAssignments(List<Assignment> assignments) {
+        this.assignments = assignments;
     }
 
     @Override
