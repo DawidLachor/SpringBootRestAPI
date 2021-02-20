@@ -1,10 +1,9 @@
 package pl.javastart.equipy.equip.asserts;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.http.HttpStatus;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.server.ResponseStatusException;
 
 import java.util.List;
 
@@ -28,5 +27,12 @@ public class AssetsResource {
             return assetsService.findByNameOrSerial(text);
         }
         return assetsService.findAll();
+    }
+
+    @PostMapping
+    public AssetsDto save(@RequestBody AssetsDto assetsDto){
+        if (assetsDto.getId() != null)
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Wyposażenie z takim id już istnieje");
+        return assetsService.save(assetsDto);
     }
 }

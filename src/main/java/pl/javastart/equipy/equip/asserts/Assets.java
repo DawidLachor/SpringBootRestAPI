@@ -12,7 +12,7 @@ public class Assets {
     private String name;
     private String description;
     private String serialNumber;
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.PERSIST)
     @JoinColumn(name = "category_id")
     private Category category;
 
