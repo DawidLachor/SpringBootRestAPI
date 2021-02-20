@@ -6,6 +6,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
 
 import java.util.List;
+import java.util.Locale;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
@@ -37,17 +38,46 @@ public class AssetsService {
                 .collect(Collectors.toList());
     }
 
+    public AssetsDto findById(Long id){
+        Optional<Assets> byId = assetsRepository.findById(id);
+        if (byId.isEmpty())
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Nie znaleziono urządzenia o takim id");
+        return assetsMapper.toDto(byId.get());
+    }
+
     public AssetsDto save(AssetsDto assetsDto) {
         Assets assets = assetsMapper.toEntity(assetsDto);
-        if (checkSerialNumber(assets.getSerialNumber())){
+        if (checkSerialNumberToSave(assets.getSerialNumber())){
             throw new ResponseStatusException(HttpStatus.CONFLICT, "Wyposażenie z takim numerem seryjnym już istnieje");
         }
+        return saveAndReturn(assets);
+    }
+
+    public AssetsDto edit(AssetsDto assetsDto) {
+        Assets assets = assetsMapper.toEntity(assetsDto);
+        if (checkSerialNumberToEdit(assets)){
+            throw new ResponseStatusException(HttpStatus.CONFLICT, "Wyposażenie z takim numerem seryjnym już istnieje");
+        }
+        return saveAndReturn(assets);
+    }
+
+    private AssetsDto saveAndReturn(Assets assets){
         Assets save = assetsRepository.save(assets);
         return assetsMapper.toDto(save);
     }
 
-    private boolean checkSerialNumber(String serialNumber){
-        Optional<Assets> bySerialNumber = assetsRepository.findBySerialNumber(serialNumber);
+    private boolean checkSerialNumberToSave(String serialNumber){
+        Optional<Assets> bySerialNumber = assetsRepository.findBySerialNumberIgnoreCase(serialNumber);
         return bySerialNumber.isPresent();
+    }
+
+    private boolean checkSerialNumberToEdit(Assets assets){
+        Optional<Assets> bySerialNumber = assetsRepository.findBySerialNumberIgnoreCase(assets.getSerialNumber());
+        Optional<Assets> byId = assetsRepository.findById(assets.getId());
+        if (bySerialNumber.isEmpty() || byId.isEmpty())
+            return false;
+        else {
+            return !byId.get().getSerialNumber().equalsIgnoreCase(bySerialNumber.get().getSerialNumber());
+        }
     }
 }

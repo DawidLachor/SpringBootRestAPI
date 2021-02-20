@@ -47,10 +47,10 @@ npm install
 * List equipment
 * Search equipment
 * Add equipment
+* Edit equipment
 
 ### To Do
 
-* Edit equipment
 * Equipment for user
 * History loans
 * Return equipments for users
