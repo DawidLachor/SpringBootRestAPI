@@ -49,10 +49,10 @@ npm install
 * Add equipment
 * Edit equipment
 * History loans
+* Equipment for user
 
 ### To Do
 
-* Equipment for user
 * Return equipments for users
 
 ## Sources
