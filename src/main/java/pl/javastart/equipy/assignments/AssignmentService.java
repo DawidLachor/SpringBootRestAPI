@@ -41,4 +41,14 @@ public class AssignmentService {
         Assignment save = assignmentRepository.save(assignment);
         return AssignmentMapper.toDto(save);
     }
+
+    public LocalDateTime recovery(Long assignmentId) {
+        Assignment assignment = assignmentRepository.findById(assignmentId)
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Wynajem o takim id nie istnieje"));
+        if (assignment.getEnd() != null)
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Wynajem został juz zwrócony");
+        assignment.setEnd(LocalDateTime.now());
+        assignmentRepository.save(assignment);
+        return assignment.getEnd();
+    }
 }

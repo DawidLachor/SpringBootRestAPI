@@ -50,9 +50,6 @@ npm install
 * Edit equipment
 * History loans
 * Equipment for user
-
-### To Do
-
 * Return equipments for users
 
 ## Sources
