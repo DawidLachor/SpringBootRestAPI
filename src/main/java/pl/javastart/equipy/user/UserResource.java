@@ -2,14 +2,9 @@ package pl.javastart.equipy.user;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
-import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
-import pl.javastart.equipy.assignments.AssignmentDto;
 
-import javax.websocket.server.PathParam;
-import java.net.URI;
 import java.util.List;
 
 @RestController
@@ -68,7 +63,7 @@ public class UserResource {
     }
 
     @GetMapping("/{userId}/assignments")
-    public List<AssignmentDto> findAllAssignment(@PathVariable Long userId){
+    public List<UserAssignmentDto> findAllAssignment(@PathVariable Long userId){
         return userService.findAllAssignment(userId);
     }
 }

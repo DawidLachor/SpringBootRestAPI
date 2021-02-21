@@ -61,6 +61,8 @@ public class AssetsService {
         return saveAndReturn(assets);
     }
 
+
+
     private AssetsDto saveAndReturn(Assets assets){
         Assets save = assetsRepository.save(assets);
         return assetsMapper.toDto(save);
@@ -79,5 +81,14 @@ public class AssetsService {
         else {
             return !byId.get().getSerialNumber().equalsIgnoreCase(bySerialNumber.get().getSerialNumber());
         }
+    }
+
+    public List<AssetsAssignmentDto> findAssignments(Long assetId) {
+       return assetsRepository.findById(assetId)
+                .map(Assets::getAssignments)
+                .orElseThrow(AssetsNotFoundException::new)
+                .stream()
+                .map(AssetsAssignmentMapping::toDto)
+                .collect(Collectors.toList());
     }
 }

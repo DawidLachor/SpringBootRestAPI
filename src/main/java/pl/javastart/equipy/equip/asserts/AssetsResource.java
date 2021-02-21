@@ -29,6 +29,13 @@ public class AssetsResource {
         return assetsService.findAll();
     }
 
+    @PostMapping
+    public AssetsDto save(@RequestBody AssetsDto assetsDto){
+        if (assetsDto.getId() != null)
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Wyposażenie z takim id już istnieje");
+        return assetsService.save(assetsDto);
+    }
+
     @GetMapping("/{id}")
     public AssetsDto findById(@PathVariable Long id){
         return assetsService.findById(id);
@@ -41,10 +48,8 @@ public class AssetsResource {
         return assetsService.edit(assetsDto);
     }
 
-    @PostMapping
-    public AssetsDto save(@RequestBody AssetsDto assetsDto){
-        if (assetsDto.getId() != null)
-            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Wyposażenie z takim id już istnieje");
-        return assetsService.save(assetsDto);
+    @GetMapping("/{assetId}/assignments")
+    public List<AssetsAssignmentDto> findAssignments(@PathVariable Long assetId){
+        return assetsService.findAssignments(assetId);
     }
 }

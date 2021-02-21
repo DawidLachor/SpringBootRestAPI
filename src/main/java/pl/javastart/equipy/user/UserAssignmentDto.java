@@ -1,8 +1,8 @@
-package pl.javastart.equipy.assignments;
+package pl.javastart.equipy.user;
 
 import java.time.LocalDateTime;
 
-public class AssignmentDto {
+public class UserAssignmentDto {
 
     private Long id;
     private LocalDateTime start;

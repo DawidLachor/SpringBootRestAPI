@@ -48,11 +48,11 @@ npm install
 * Search equipment
 * Add equipment
 * Edit equipment
+* History loans
 
 ### To Do
 
 * Equipment for user
-* History loans
 * Return equipments for users
 
 ## Sources
